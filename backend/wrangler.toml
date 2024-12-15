@@ -1,0 +1,8 @@
+
+[vars]
+R2_BUCKET_NAME = "Question_Bank_Bucket"
+
+[[r2_buckets]]
+binding = "Question_Bank_Bucket"
+bucket_name = "question-papers"
+

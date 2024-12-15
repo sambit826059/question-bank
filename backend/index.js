@@ -1,34 +1,11 @@
 const express = require("express");
+const rootRouter = require("./routes/index");
+const cors = require("cors");
 const app = express();
-import createUserSchema from "./db/db";
-import { Pool } from "pg";
-import dotenv from "dotenv";
 
-dotenv.config();
+app.use(cors());
 app.use(express.json());
 
-const pool = new Pool({
-  connectionString: process.env.POSTGRES_URL,
-})
+app.use("/api/v1", rootRouter);
 
-app.get("/", (req, res) => {
-  res.send("Server is Healthy");
-})
-
-app.post("/create-user", (req, res) => {
-  const { first_name, middle_name, last_name, email, password } = req.body;
-
-  if (first_name || !middle_name || !last_name || !email || !password) {
-    return res.status(400).json({ error: "MIssing required values" });
-  }
-
-  const query =
-    INSERT INTO users (first_name, middle_name, last_name, email, password)
-  VALUES($1, $2, $3, $4, $5)
-  RETURNING *;
-  `;
-
-})
-
-
-app.listen(5000);
+app.listen(3000);

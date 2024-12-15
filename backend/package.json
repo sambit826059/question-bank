@@ -10,13 +10,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@cloudflare/workers-types": "^4.20241205.0",
+    "@cloudflare/wrangler": "^1.21.0",
     "@prisma/client": "^6.0.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.6",
     "express": "^4.18.2",
     "express-promise-router": "^4.1.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.1.0",
     "pg": "^8.13.1",
     "prisma": "^6.0.1",
-    "zod": "^3.22.4"
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "wrangler": "^3.95.0"
   }
 }

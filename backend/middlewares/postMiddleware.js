@@ -1,28 +1,15 @@
-const { JWT_SECRET } = require("../config");
-const jwt = require("jsonwebtoken");
+const postValidationMiddleware = (req, res, next) => {
+  const { title, fileUrl, fileSize, description } = req.body;
 
-const postMiddleware = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader || !authHeader.startsWith("Bearer")) {
-    return res.status(411).json({
-      error: "wrong formatted token"
-    });
+  if (!title || !fileUrl || !fileSize || !description) {
+    return res.status(400).json({ error: "Missing required fields: title, fileUrl, fileSize or description" });
   }
 
-  const token = authHeader.split('')[1];
-
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    req.userId = decoded.userId;
-    next();
-  } catch (err) {
-    return res.status(403).json({
-      error: "token expired or wrong token"
-    });
+  if (fileSize > 5 * 1024 * 1024) {
+    return res.status(400).json({ error: "File size exceeds 5 MB limit" });
   }
+
+  next();
 }
 
-module.exports = {
-  postMiddleware
-}
+module.exports = postValidationMiddleware;

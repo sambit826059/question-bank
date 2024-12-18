@@ -1,6 +1,6 @@
 
 [vars]
-R2_BUCKET_NAME = "Question_Bank_Bucket"
+R2_BUCKET_NAME = "question-papres"
 
 [[r2_buckets]]
 binding = "Question_Bank_Bucket"

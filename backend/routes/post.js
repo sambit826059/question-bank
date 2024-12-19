@@ -13,9 +13,9 @@ const prisma = new PrismaClient();
 
 const postUploadBody = z.object({
   title: z.string().min(1).max(100),
-  description: z.string.min(10).max(500),
+  description: z.string().min(10).max(500),
   fileUrl: z.string().url(),
-  fileSize: number().positive(),
+  fileSize: z.number().positive(),
   fileType: z.string().optional(),
 });
 

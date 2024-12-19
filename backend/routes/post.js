@@ -21,6 +21,7 @@ const postUploadBody = z.object({
 
 router.use(authMiddleware);
 
+// getting all the posts 
 router.get("/posts", async (req, res) => {
   try {
     const posts = await prisma.post.findMany({
@@ -43,6 +44,7 @@ router.get("/posts", async (req, res) => {
   }
 });
 
+// getting specific posts 
 router.get("/:id", async (req, res) => {
   try {
     const post = await prisma.post.findUnique({
@@ -74,6 +76,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// uploading new posts
 router.post("/", async (req, res) => {
   try {
     const validatedData = await postUploadBody.parseAsync(req.body);
@@ -102,11 +105,10 @@ router.post("/", async (req, res) => {
   }
 });
 
+// updating existing posts 
 router.put("/post/:id", async (req, res) => {
   try {
-    const { title, fileSize, fileUrl, fileType, description } = await postUploadBody.parseAsync(
-      req.body
-    );
+    const validatedData = await postUploadBody.parseAsync(req.body);
 
     // to update post in db
     const post = await prisma.post.update({
@@ -114,11 +116,7 @@ router.put("/post/:id", async (req, res) => {
         id: parseInt(req.params.id),
       },
       data: {
-        title,
-        fileUrl,
-        fileSize,
-        fileType,
-        description,
+        ...validatedData,
       },
     });
 
@@ -131,6 +129,7 @@ router.put("/post/:id", async (req, res) => {
   }
 })
 
+//delete a post 
 router.delete("/post/:id", async (req, res) => {
   try {
     const post = await prisma.post.findUnique({

@@ -147,15 +147,15 @@ router.delete("/post/:id", async (req, res) => {
       return res.status(403).json({ error: "Not authorized to delete this post" })
     }
 
-    // delete from r2 
-    await r2Service.deleteFile(post.fileUrl);
-
     // delete from db
     await prisma.post.delete({
       where: {
         id: parseInt(req.params.id)
       }
     });
+
+    // delete from r2 
+    await r2Service.deleteFile(post.fileUrl);
 
     return res.status(200).json({ message: "Post deleted successfully" });
   } catch (error) {

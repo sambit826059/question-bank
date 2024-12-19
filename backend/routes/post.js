@@ -133,7 +133,7 @@ router.put("/post/:id", async (req, res) => {
 
 router.delete("/post/:id", async (req, res) => {
   try {
-    const post = await prisma.post.delete({
+    const post = await prisma.post.findUnique({
       where: {
         id: parseInt(req.params.id),
       },

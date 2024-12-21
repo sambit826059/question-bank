@@ -40,7 +40,7 @@ const Page = () => {
                 className={`text-2xl font-bold font-serif ${mode === "light" ? "text-rustic-700" : "text-cream-200"
                   }`}
               >
-                QuestionBank
+                CUTM Questionbank
               </span>
             </div>
             <div className="flex items-center">
